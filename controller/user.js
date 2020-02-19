@@ -2,7 +2,7 @@ var express = require('express');
 var app = express.Router();
 register = require('./models/register');
 login= require('./models/login');
-
+    
     app.post('/register',(req,res)=>{
         register.addUser(req,res,(err,result)=>{
             if(err){

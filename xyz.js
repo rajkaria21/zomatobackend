@@ -1,14 +1,4 @@
 
-// app.get('/restaurants',(req,res)=>{
-//     let sql = 'select * from restaurants';
-//     con.query(sql,(err,result)=>{
-//         if(err){
-//             res.send("Error Fetching in Restaurants");
-//         }else{
-//             res.send(result);
-//         }
-//     });
-// });
 
 
 // app.post('/register',(req,res)=>{

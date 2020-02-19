@@ -8,11 +8,16 @@ login.prototype.getUser = (req,res)=>{
          if(err){
              res.send('Error');
          }else{
-            if(req.body.password === result[0].password){
-                res.send('Login successfully');
-            }else{
-                res.send('Email or Password is incorrect');
-            }
+             if(result.length > 0){
+                if(req.body.password === result[0].password){
+                    res.send('Login successfully');
+                }else{
+                    res.send('Email or Password is incorrect');
+                }
+             }else{
+                res.send('Email does not exists');
+             }
+            
          }
      });
 }
