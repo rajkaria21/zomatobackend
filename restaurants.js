@@ -5,4 +5,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Attach connection file
 
-var con = require('./connection')
+var con = require('./connection');
+

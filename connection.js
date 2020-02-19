@@ -5,7 +5,7 @@ var dbcon = sql.createConnection({
     port: '3333',
     user:'root',
     password:'',
-    database:'authdemo'
+    database:'zomato'
 });
 dbcon.connect((err)=>{
     if(err){
