@@ -1,6 +1,16 @@
 
+// if(res.code == 'ERR_DUP_ENTRY'){
+//     res.send(myerr);
+// }else{
+//     res.send('try another email id');
+// }   
 
 
+// if(email == req.body.email){
+//     res.send(myerr);
+// }else{
+//     res.send('')
+// }
 // app.post('/register',(req,res)=>{
 //     var users = {
 //         u_id:req.body.u_id,
@@ -39,3 +49,43 @@
 //         }
 //     })
 //   });
+
+function fieldExists(email,phone,callback){
+
+    const data={};
+    check=false;
+
+    // Email Already Exists
+    if(check==false){
+        checkQuery=`SELECT * FROM user where email='${email}'`;
+        con.query(checkQuery,function (err, result){
+            if(isNaN(result)){
+                data.status="Error";
+                data.message="Email Already Exists";
+                check=true;
+                checkMyFunc(data,check);
+            }
+        });
+    }
+
+    if(check==false){
+        //Phone Number Already Exists
+        checkQuery=`SELECT * FROM user where mob_no=${mob_no}`;
+        con.query(checkQuery,function(err,result){
+            if(isNaN(result)){
+                data.status="Error";
+                data.message="Phone Number Already Exists";
+                check=true;
+                checkMyFunc(data,check);
+            }
+        });
+    }
+
+    function checkMyFunc(data,check){
+        console.log(data,check);
+        if(check==true){
+            callback(data);
+        }
+    }
+}
+

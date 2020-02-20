@@ -2,20 +2,23 @@ var con = require('../../connection');
 var login =function(){ }
 
 login.prototype.getUser = (req,res)=>{
-    // var params = [req.body.username,req.body.password];
+    
+    console.log(req.body);
+    
     var sqlquery = 'select * from user where email = "' + req.body.email + '"';
      con.query(sqlquery,(err,result)=>{
+
          if(err){
              res.send('Error');
          }else{
              if(result.length > 0){
                 if(req.body.password === result[0].password){
-                    res.send('Login successfully');
+                    res.json({ 'success': true, 'message': 'User Logged succesfully' });
                 }else{
-                    res.send('Email or Password is incorrect');
+                    res.json({ 'error': true, 'message': 'Incoorect password or Email' });
                 }
              }else{
-                res.send('Email does not exists');
+                res.json({ 'error': true, 'message': 'email does not exits' });
              }
             
          }

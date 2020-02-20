@@ -6,7 +6,7 @@ getrestaurents.prototype.getRestaurents = (req,res)=>{
     con.query(sql,(err,result)=>{
         if(err){
             console.log(err);
-            res.send("Error Fetching in Restaurents");
+            res.json({ 'error': true, 'message': 'Error Fetching Restaurents.. !' });
         }else{
             res.send(result);
         }

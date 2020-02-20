@@ -1,6 +1,7 @@
 var con = require('../../connection');
 var register =function(){ }
-const err = new Error('Email Already Exists');
+// const myerr = new Error('Email Already Exists');
+// middleware = require('../models/middleware');
 
 register.prototype.addUser = (req,res,callback)=>{
     var params = [req.body.username, req.body.email, req.body.password, req.body.mob_no, req.body.address, req.body.city];
@@ -8,12 +9,11 @@ register.prototype.addUser = (req,res,callback)=>{
 
     con.query(sqlquery,params,(err,result)=>{
         if(err){
-            res.json({ 'error': true, 'message': 'Email alresdy exists !' });
-            callback(true,null);
+            res.json(err);
         }else{
-            res.send('Success');
-            callback(null,true);
-        }       
+            res.json('Success');
+        }
+        
     });
 }
 
