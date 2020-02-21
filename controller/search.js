@@ -1,13 +1,13 @@
 var express =require('express');
 var app = express.Router();
 
-food = require('../controller/models/getfood');
+searchfood = require('../controller/models/searchbyfood');
 
-app.post('/restaurents/food',(req,res)=>{
-    food.getFood(req,res,(err,result)=>{
+app.post('/search',(req,res)=>{
+    searchfood.searchbyFood(req,res,(err,result)=>{
         if(err){
             // console.log(err);
-            res.json({ 'error': true, 'message': 'Error Fetching Food !' });
+            res.json({ 'error': true, 'message': 'Error Searching Food !' });
         }else{
             res.json(result);
             // console.log(result);
@@ -16,4 +16,5 @@ app.post('/restaurents/food',(req,res)=>{
         }
     })
 })
+
 module.exports = app;

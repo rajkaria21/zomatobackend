@@ -26,7 +26,7 @@ app.post('/restaurents/resdetail',(req,res)=>{
             res.json({ 'success': true, 'message': ' Done!' });
 
         }
-    })
-})
+    });
+});
 
 module.exports =  app;
