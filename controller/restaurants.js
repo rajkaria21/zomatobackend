@@ -4,25 +4,36 @@ var app = express.Router();
 restaurent = require('../controller/models/getrestaurents');
 resdetails = require('../controller/models/getresdetail');
 
-app.get('/restaurents',(req,res)=>{
-    restaurent.getRestaurents(req,res,(err,result)=>{
-        if(err){
-            console.log(err);
+//======== Get Restautrents ===========
+
+app.get('/restaurents',(req,res)=>
+{
+    restaurent.getRestaurents(req,res,(err,result)=>
+    {
+        if(err)
+        {
             res.json({ 'error': true, 'message': 'Error Fetching Restaurents .. !' });
-        }else{
+        }
+        else
+        {
             res.json(result);
         }
     });
 });
 
-app.post('/restaurents/resdetail',(req,res)=>{
-    resdetails.getResdetails(req,res,(err,result)=>{
-        if(err){
-            // console.log(err);
+// ========== Get Restaurents Detail ============
+
+app.post('/restaurents/resdetail',(req,res)=>
+{
+    resdetails.getResdetails(req,res,(err,result)=>
+    {
+        if(err)
+        {
             res.json({ 'error': true, 'message': 'Error Fetching Restaurents Details .. !' });
-        }else{
+        }
+        else
+        {
             res.json(result);
-            // console.log(result);
             res.json({ 'success': true, 'message': ' Done!' });
 
         }

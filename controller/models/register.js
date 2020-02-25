@@ -1,20 +1,50 @@
 var con = require('../../connection');
 var register =function(){ }
-// const myerr = new Error('Email Already Exists');
-// middleware = require('../models/middleware');
 
-register.prototype.addUser = (req,res,callback)=>{
-    var params = [req.body.username, req.body.email, req.body.password, req.body.mob_no, req.body.address, req.body.city];
-    var sqlquery='INSERT INTO user (username,email,password,mob_no,address,city) VALUES(?,?,?,?,?,?)';
+// var bcrypt = require('bcrypt');
 
-    con.query(sqlquery,params,(err,result)=>{
-        if(err){
-            res.json(err);
-        }else{
-            res.json('Success');
-        }
-        
-    });
+
+register.prototype.addUser = (req,res,callback)=>
+{
+
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    var mob_no = req.body.mob_no;
+    var address = req.body.address;
+    var city = req.body.city;
+
+    // bcrypt.genSalt(saltRounds, function(err, salt) {
+    //     bcrypt.hash(req.body.password, salt, function(err, hash) {
+            // Store hash in your password DB.
+            // var sqlquery='INSERT INTO user (username,email,password,mob_no,address,city) VALUES(?,?,?,?,?,?)';
+            con.query(`select * from user where email = '${req.body.email}'`,function(error,result)
+            {
+                if(result.length==0)
+                {
+                    con.query('INSERT INTO user (username,email,password,mob_no,address,city) VALUES(?,?,?,?,?,?)',[username,email,password,mob_no,address,city],
+                    (err,result)=>
+                    {
+                        if(err)
+                        {
+                            res.json(err);
+                        }
+                        else
+                        {
+                            res.json('Success');
+                        }
+                        
+                    });
+                }
+                else
+                {
+                    res.json("Email Already exists");
+                }
+            });
+    //     }); 
+    // });
+    
 }
+
 
 module.exports = new register();

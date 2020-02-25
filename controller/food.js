@@ -3,17 +3,21 @@ var app = express.Router();
 
 food = require('../controller/models/getfood');
 
-app.post('/restaurents/food',(req,res)=>{
-    food.getFood(req,res,(err,result)=>{
-        if(err){
-            // console.log(err);
+app.post('/fooddetails',(req,res)=>
+{
+    food.getFood(req,res,(err,result)=>
+    {
+        if(err)
+        {
             res.json({ 'error': true, 'message': 'Error Fetching Food !' });
-        }else{
+        }
+        else
+        {
             res.json(result);
-            // console.log(result);
             res.json({ 'success': true, 'message': ' Done!' });
 
         }
-    })
-})
+    });
+});
+
 module.exports = app;

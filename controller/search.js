@@ -3,18 +3,21 @@ var app = express.Router();
 
 searchfood = require('../controller/models/searchbyfood');
 
-app.post('/search',(req,res)=>{
-    searchfood.searchbyFood(req,res,(err,result)=>{
-        if(err){
-            // console.log(err);
+app.post('/search',(req,res)=>
+{
+    searchfood.searchbyFood(req,res,(err,result)=>
+    {
+        if(err)
+        {
             res.json({ 'error': true, 'message': 'Error Searching Food !' });
-        }else{
+        }
+        else
+        {
             res.json(result);
-            // console.log(result);
             res.json({ 'success': true, 'message': ' Done!' });
 
         }
-    })
-})
+    });
+});
 
 module.exports = app;
