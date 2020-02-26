@@ -19,15 +19,15 @@ addtocart.prototype.addtoCart = (req,res)=>
             }
             else
             {
-                res.json('Order added to Cart');
+                res.json({ 'success': true, 'message': 'Order added to Cart' });
             }
         });
        }
        else
        {
            con.query(`update cart set qty=${req.body.qty},total_amount=${req.body.total_amount} where email='${req.body.email}' and f_id=${req.body.f_id}`);
-           res.json('Updated');
-       }
+           res.json({ 'success': true, 'message': 'Updated' });
+        }
    });
 }
 

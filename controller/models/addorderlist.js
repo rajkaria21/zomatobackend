@@ -17,20 +17,19 @@ addtoorderlist.prototype.addtoOrderList = (req,res)=>
         {
             if(err)
             {
-                console.log(err);
                 res.json({ 'error': true, 'message': 'Error Adding Order.. !' });
                 
             }
             else
             {
-                res.json('Order added to Order List');
+                res.json({ 'success': true, 'message': 'Order added to Order List' });
             }
         });
        }
        else
        {
-        res.json('Order Alreay Added');
-       }
+        res.json({ 'error': true, 'message': 'Order Already Added' });
+    }
    });
 }
 

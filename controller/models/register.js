@@ -31,14 +31,14 @@ register.prototype.addUser = (req,res,callback)=>
                         }
                         else
                         {
-                            res.json('Success');
+                            res.json({ 'success': true, 'message': 'Success!' });
                         }
                         
                     });
                 }
                 else
                 {
-                    res.json("Email Already exists");
+                    res.json({ 'error': true, 'message': 'Email Alreay Exists' });
                 }
             });
     //     }); 

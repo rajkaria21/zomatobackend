@@ -23,4 +23,6 @@ forgotpass.prototype.forgotUser = (req,res)=>{
 }
 
 
+
+
 module.exports = new forgotpass();

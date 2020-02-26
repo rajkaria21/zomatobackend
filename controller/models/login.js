@@ -8,8 +8,8 @@ login.prototype.getUser = (req,res)=>
      {
          if(err)
          {
-             res.send('Error');
-         }
+            res.json({'error':true, 'message':'Error'});
+        }
          else
          {
              if(result.length > 0)

@@ -3,7 +3,7 @@ var editprofile =function(){ }
 
 editprofile.prototype.editProfile = (req,res)=>
 {
-    // con.query(`select  from user where email='${req.body.email}'`,(err,result)=>
+    // con.query(`select username,mob_no,address,city from user where email='${req.body.email}'`,(err,result)=>
     // {
     //     if(result.length == 0 )
     //     {
@@ -13,7 +13,7 @@ editprofile.prototype.editProfile = (req,res)=>
             {
                 if(err)
                 {
-                    res.send('Error');
+                    res.json({'error':true, 'message':'Error'});
                 }
                 else
                 {
@@ -28,9 +28,9 @@ editprofile.prototype.editProfile = (req,res)=>
                    
                 }
             });
-        // }else{
-        //     res.json('Please Select Diff. Password');
-        // }
+    //     }else{
+    //         res.json('Already Updated or Change Data');
+    //     }
     // });
 
 }

@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express.Router();
+var nodemailer = require('nodemailer');
 
 register = require('./models/register');
 login= require('./models/login');
@@ -96,7 +97,7 @@ editprofile = require('./models/editprofile');
         });
     });
 
-// ========== Regiter User ===========
+// ========== Edit Profile Details ===========
 
     app.post('/editprofile',(req,res)=>{
         editprofile.editProfile(req,res,(err,result)=>{
@@ -108,22 +109,42 @@ editprofile = require('./models/editprofile');
         });
     });
 
-// ========== Regiter User ===========
+//=========== Forgot pass via email link  FOR TRIAL ========
 
-//     app.post('/logins',(req,res)=>
-//     {
-//         login1.getUsers(req,res,(err,result)=>
-//         {
-//             if(err)
-//             {
-//                 res.json({ 'error': true, 'message': 'error' });
-//             }
-//             else
-//             {  
-//                 res.json({ 'success': true, 'message': 'Login success' });
-//             }
-//         });
-// });
+    app.post('/forgotpasss',(req,res)=>
+    {
+        // email = req.body.email;
 
+        var transporter = nodemailer.createTransport(
+        {
+            service: 'gmail',
+            auth: {
+            user: 'raj.karia.sa@gmail.com',
+            pass: 'raj@123456'
+        }
+    });
+
+    var mailOptions = 
+    {
+    from: 'raj.karia.sa@gmail.com',
+    to: '',
+    subject: 'Mail Testing',
+    text: 'Hello How r u ?'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error) 
+    {
+        console.log(error);
+    } 
+    else 
+    {
+        console.log('Email sent: ' + info.response);
+        res.json('Email sent: ' + info.response)
+    }
+    });
+    });
+
+    
 
 module.exports = app;

@@ -12,7 +12,7 @@ changepass.prototype.changePass = (req,res)=>
             { 
                 if(err)
                 {
-                    res.send('Error');
+                    res.json({'error':true, 'message':'Error'});
                 }
                 else
                 {
@@ -27,8 +27,10 @@ changepass.prototype.changePass = (req,res)=>
                    
                 }
             });
-        }else{
-            res.json('Please Select Diff. Password');
+        }
+        else
+        {
+            res.json({'error':true, 'message':'Please Select Diff. Password'});
         }
     });
 

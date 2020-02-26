@@ -5,25 +5,27 @@ var getcartdetails = function(){}
 getcartdetails.prototype.getDetails = (req,res)=>
 {
 
-    con.query(`select  * from cart where f_id=${req.body.f_id} and r_id=${req.body.r_id} and email='${req.body.email}'`,function(err,result)
+    let f_id=Number(req.body.f_id);
+    let r_id=Number(req.body.r_id);
+
+    con.query(`select  *  from cart where f_id=${f_id} and r_id=${r_id} and email='${req.body.email}'`,function(err,result)
     {
         if(result.length == 0)
         {
-            res.json('No items in cart');
+            res.json({ 'error': true, 'message': 'no items !' });
         }
         else
         {
-            var sql = `select * from cart where f_id=${req.body.f_id} and r_id=${req.body.r_id} and email='${req.body.email}'`;
+            var sql = `select * from cart where f_id=${f_id} and r_id=${r_id} and email='${req.body.email}'`;
             con.query(sql,(err,result)=>
             {
                 if(err)
                 {
-                    console.log(err)
                     res.json({ 'error': true, 'message': 'Error Fetching Cart Details.. !' });
                 }
                 else
                 {
-                    console.log(result);
+                    // console.log(result)
                     res.json(result);
                 }
             });
@@ -35,4 +37,3 @@ getcartdetails.prototype.getDetails = (req,res)=>
 module.exports = new getcartdetails();
 
 
-// CAST(MyVarcharCol AS INT)    
