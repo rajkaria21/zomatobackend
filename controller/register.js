@@ -33,7 +33,6 @@ register.prototype.addUser = (req,res,callback)=>
                             res.json({ 'success': true, 'message': 'Success!' });
                             
                         }
-                        
                     });
                 }
                 else
@@ -44,7 +43,6 @@ register.prototype.addUser = (req,res,callback)=>
         }
         else
         {
-            // res.send(response)
             res.json({ 'error': true, 'message': 'Email Does Not Exists' });
         }
     });

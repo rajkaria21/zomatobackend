@@ -4,7 +4,7 @@ var nodemailer = require('nodemailer');
 
 register = require('../controller/register');
 login= require('../controller/login');
-login1 = require('../controller/login1');
+
 forgot = require('../controller/forgotpass');
 profile = require('../controller/getprofile'); 
 change = require('../controller/changepass');

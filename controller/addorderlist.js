@@ -1,9 +1,11 @@
 var con = require('../config/connection');
 var addtoorderlist = function(){}
 
+var nodemailer = require('nodemailer');
 
 addtoorderlist.prototype.addtoOrderList = (req,res)=>
 {
+    
    var params =[req.body.email,req.body.r_id,req.body.f_id,req.body.total_amount,req.body.qty,req.body.address,req.body.payment_type];
 
    con.query(`select * from order_list where email='${req.body.email}' and r_id=${req.body.r_id} and 
@@ -33,4 +35,34 @@ addtoorderlist.prototype.addtoOrderList = (req,res)=>
    });
 }
 
-module.exports = new addtoorderlist();
+// module.exports = new addtoorderlist();
+
+
+// var transporter = nodemailer.createTransport(
+//     {
+//         service: 'gmail',
+//         auth: {
+//         user: 'raj.karia.sa@gmail.com',
+//         pass: 'raj@123456'
+//     }
+// });
+
+// var mailOptions = 
+// {
+//     from: 'raj.karia.sa@gmail.com',
+//     to: req.body.email,
+//     subject: 'Order Confirmed',
+//     text: 'Your Order is Confirmed.'
+
+// }
+
+// transporter.sendMail(mailOptions, function(error, info){
+// if (error) 
+// {
+//     res.send(error);
+// } 
+// else 
+// {
+//     res.json({'success':true, 'message':'Done'});
+// }
+// });
