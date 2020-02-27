@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express.Router();
 
-restaurent = require('../controller/models/getrestaurents');
-resdetails = require('../controller/models/getresdetail');
+restaurent = require('../controller/getrestaurents');
+resdetails = require('../controller/getresdetail');
 
 //======== Get Restautrents ===========
 

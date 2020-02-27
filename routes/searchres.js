@@ -1,7 +1,7 @@
 var express =require('express');
 var app = express.Router();
 
-searchres = require('../controller/models/searchbyres');
+searchres = require('../controller/searchbyres');
 
 
 app.post('/search',(req,res)=>

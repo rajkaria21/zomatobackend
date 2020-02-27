@@ -1,4 +1,4 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var addtocart = function(){}
 
 
@@ -25,8 +25,15 @@ addtocart.prototype.addtoCart = (req,res)=>
        }
        else
        {
-           con.query(`update cart set qty=${req.body.qty},total_amount=${req.body.total_amount} where email='${req.body.email}' and f_id=${req.body.f_id}`);
-           res.json({ 'success': true, 'message': 'Updated' });
+        if(req.body.qty == 0)
+        {
+            con.query(`delete from cart where email='${req.body.email}' and f_id=${req.body.f_id}`);
+        }
+        else
+        {
+            con.query(`update cart set qty=${req.body.qty},total_amount=${req.body.total_amount} where email='${req.body.email}' and f_id=${req.body.f_id}`);
+            res.json({ 'success': true, 'message': 'Updated' });
+        }
         }
    });
 }

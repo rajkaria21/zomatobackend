@@ -1,8 +1,8 @@
 var express =require('express');
 var app = express.Router();
 
-cart = require('../controller/models/addtocart');
-cartdetails = require('./models/getcartdetails');
+cart = require('../controller/addtocart');
+cartdetails = require('../controller/getcartdetails');
 
 // ========== Add to Cart ===========
 

@@ -1,7 +1,7 @@
 var express =require('express');
 var app = express.Router();
 
-searchfood = require('../controller/models/searchbyfood');
+searchfood = require('../controller/searchbyfood');
 
 app.post('/search',(req,res)=>
 {

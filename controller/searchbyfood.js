@@ -1,4 +1,4 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var searchbyfood = function (){}
 
 searchbyfood.prototype.searchbyFood = (req,res)=>

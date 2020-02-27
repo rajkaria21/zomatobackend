@@ -1,4 +1,4 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var getfood = function(){}
 
 getfood.prototype.getFood = (req,res)=>

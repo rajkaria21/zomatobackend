@@ -1,7 +1,6 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var register =function(){ }
-
-// var bcrypt = require('bcrypt');
+var emailExistence = require('email-existence')
 
 
 register.prototype.addUser = (req,res,callback)=>
@@ -13,11 +12,11 @@ register.prototype.addUser = (req,res,callback)=>
     var mob_no = req.body.mob_no;
     var address = req.body.address;
     var city = req.body.city;
-
-    // bcrypt.genSalt(saltRounds, function(err, salt) {
-    //     bcrypt.hash(req.body.password, salt, function(err, hash) {
-            // Store hash in your password DB.
-            // var sqlquery='INSERT INTO user (username,email,password,mob_no,address,city) VALUES(?,?,?,?,?,?)';
+    
+    emailExistence.check(email, function(error, response)
+    {
+        if(response == true)
+        {
             con.query(`select * from user where email = '${req.body.email}'`,function(error,result)
             {
                 if(result.length==0)
@@ -32,6 +31,7 @@ register.prototype.addUser = (req,res,callback)=>
                         else
                         {
                             res.json({ 'success': true, 'message': 'Success!' });
+                            
                         }
                         
                     });
@@ -41,8 +41,13 @@ register.prototype.addUser = (req,res,callback)=>
                     res.json({ 'error': true, 'message': 'Email Alreay Exists' });
                 }
             });
-    //     }); 
-    // });
+        }
+        else
+        {
+            // res.send(response)
+            res.json({ 'error': true, 'message': 'Email Does Not Exists' });
+        }
+    });
     
 }
 

@@ -2,13 +2,14 @@ var express = require('express');
 var app = express.Router();
 var nodemailer = require('nodemailer');
 
-register = require('./models/register');
-login= require('./models/login');
-login1 = require('./models/login1');
-forgot = require('./models/forgotpass');
-profile = require('./models/getprofile'); 
-change = require('./models/changepass');
-editprofile = require('./models/editprofile');
+register = require('../controller/register');
+login= require('../controller/login');
+login1 = require('../controller/login1');
+forgot = require('../controller/forgotpass');
+profile = require('../controller/getprofile'); 
+change = require('../controller/changepass');
+editprofile = require('../controller/editprofile');
+verifyotp = require('../controller/verifyotp');
 
 // ========== Regiter User ===========
 
@@ -80,6 +81,24 @@ editprofile = require('./models/editprofile');
         });
     });
 
+
+// ========== Verify OTP =============
+
+    app.post('/verifyotp',(req,res)=>
+    {
+        verifyotp.verifyOTP(req,res,(err,result)=>
+        {
+            if(err)
+            {
+                res.json({'error':true,'message':'Error'})
+            }
+            else
+            {
+                res.json({ 'success':true,'message':'Success'});
+            }
+        });
+    });
+
 // ========== Get profile Details ===========
 
     app.post('/profiledetails',(req,res)=>
@@ -109,42 +128,10 @@ editprofile = require('./models/editprofile');
         });
     });
 
-//=========== Forgot pass via email link  FOR TRIAL ========
 
-    app.post('/forgotpasss',(req,res)=>
-    {
-        // email = req.body.email;
 
-        var transporter = nodemailer.createTransport(
-        {
-            service: 'gmail',
-            auth: {
-            user: 'raj.karia.sa@gmail.com',
-            pass: 'raj@123456'
-        }
-    });
 
-    var mailOptions = 
-    {
-    from: 'raj.karia.sa@gmail.com',
-    to: '',
-    subject: 'Mail Testing',
-    text: 'Hello How r u ?'
-    };
 
-    transporter.sendMail(mailOptions, function(error, info){
-    if (error) 
-    {
-        console.log(error);
-    } 
-    else 
-    {
-        console.log('Email sent: ' + info.response);
-        res.json('Email sent: ' + info.response)
-    }
-    });
-    });
 
-    
 
 module.exports = app;

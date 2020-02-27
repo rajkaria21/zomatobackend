@@ -1,7 +1,7 @@
 var express =require('express');
 var app = express.Router();
 
-food = require('../controller/models/getfood');
+food = require('../controller/getfood');
 
 app.post('/fooddetails',(req,res)=>
 {

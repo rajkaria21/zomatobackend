@@ -1,4 +1,4 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var login =function(){ }
 const bcrypt = require("bcrypt")
  const saltRounds = 10;

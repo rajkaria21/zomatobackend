@@ -1,8 +1,9 @@
-var con = require('../../connection');
+var con = require('../config/connection');
 var changepass =function(){ }
 
 changepass.prototype.changePass = (req,res)=>
 {
+    
     con.query(`select password from user where password='${req.body.password}' and email ='${req.body.email}'`,(err,result)=>
     {
         if(result.length == 0 )

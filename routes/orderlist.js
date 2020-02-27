@@ -1,6 +1,6 @@
 var express =require('express');
 var app = express.Router();
-order = require('../controller/models/addorderlist');
+order = require('../controller/addorderlist');
 
 app.post('/addtoorderlist',(req,res)=>
 {
