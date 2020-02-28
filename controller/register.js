@@ -43,7 +43,7 @@ register.prototype.addUser = (req,res,callback)=>
         }
         else
         {
-            res.json({ 'error': true, 'message': 'Email Does Not Exists' });
+            res.json({ 'error': true, 'message': 'Invalid Email' });
         }
     });
     

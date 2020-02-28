@@ -5,6 +5,7 @@ var addtocart = function(){}
 addtocart.prototype.addtoCart = (req,res)=>
 {
    var params =[req.body.f_id,req.body.r_id,req.body.qty,req.body.amount,req.body.total_amount,req.body.email];
+
    con.query(`select * from cart where email='${req.body.email}' and f_id=${req.body.f_id}`,function(err,result)
    {
        if(result.length == 0)
@@ -13,7 +14,6 @@ addtocart.prototype.addtoCart = (req,res)=>
         {
             if(err)
             {
-                console.log(err);
                 res.json({ 'error': true, 'message': 'Error Adding Order.. !' });
                 
             }

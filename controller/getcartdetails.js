@@ -5,7 +5,7 @@ var getcartdetails = function(){}
 getcartdetails.prototype.getDetails = (req,res)=>
 {
 
-    let f_id=Number(req.body.f_id);
+    // let f_id=Number(req.body.f_id);
     let r_id=Number(req.body.r_id);
 
     con.query(`select  *  from cart where r_id=${r_id} and email='${req.body.email}'`,function(err,result)
@@ -25,7 +25,6 @@ getcartdetails.prototype.getDetails = (req,res)=>
                 }
                 else
                 {
-                    // console.log(result);
                     res.json(result);
                 }
             });

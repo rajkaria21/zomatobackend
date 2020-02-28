@@ -13,7 +13,6 @@ verifyotp.prototype.verifyOTP =(req,res)=>
         {
                 res.json({ 'error':true,'message':'Wrong OTP'});
         }
-        // console.log(typeof result.legth);
     })
 }
 

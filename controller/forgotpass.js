@@ -7,6 +7,7 @@ forgotpass.prototype.forgotUser = (req,res)=>
 {
     
     // Generating OTP
+
     function generateOTP(email) 
     {   
         var digits = '0123456789'; 
@@ -31,10 +32,10 @@ forgotpass.prototype.forgotUser = (req,res)=>
         
         var mailOptions = 
         {
-            from: 'raj.karia.sa@gmail.com',
+            from: 'Zomato <raj.karia.sa@gmail.com>',
             to: req.body.email,
             subject: 'Reset Password',
-            text: 'Your OTP for Resetting Password:'+OTP+'.'
+            text: 'Your OTP for Resetting Password: '+OTP+' .'
         
         }
     
@@ -45,7 +46,6 @@ forgotpass.prototype.forgotUser = (req,res)=>
         } 
         else 
         {
-            console.log('OTP Email sent');
             res.json({'success':true, 'message':'Verified !! OTP sent in Mail'});
         }
         });

@@ -5,6 +5,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('./controller'));
 
-app.listen('3005',()=>{
+app.listen('3000',()=>{
     console.log('server started');
 });

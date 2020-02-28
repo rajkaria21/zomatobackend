@@ -24,6 +24,34 @@ addtoorderlist.prototype.addtoOrderList = (req,res)=>
             }
             else
             {
+            var transporter = nodemailer.createTransport(
+                {
+                    service: 'gmail',
+                    auth: {
+                    user: 'raj.karia.sa@gmail.com',
+                    pass: 'raj@123456'
+                }
+            });
+
+            var mailOptions = 
+            {
+                from: 'Zomato<raj.karia.sa@gmail.com>',
+                to: req.body.email,
+                subject: 'Order Confirmed',
+                text: 'Your Order is Confirmed.Thank You For Ordering.Hope You have enjoyed the Food.'
+
+            }
+
+            transporter.sendMail(mailOptions, function(error, info){
+            if (error) 
+            {
+                res.send(error);
+            } 
+            else 
+            {
+                res.json({'success':true, 'message':'Done'});
+            }
+            });
                 res.json({ 'success': true, 'message': 'Order added to Order List' });
             }
         });
@@ -35,34 +63,5 @@ addtoorderlist.prototype.addtoOrderList = (req,res)=>
    });
 }
 
-// module.exports = new addtoorderlist();
+module.exports = new addtoorderlist();
 
-
-// var transporter = nodemailer.createTransport(
-//     {
-//         service: 'gmail',
-//         auth: {
-//         user: 'raj.karia.sa@gmail.com',
-//         pass: 'raj@123456'
-//     }
-// });
-
-// var mailOptions = 
-// {
-//     from: 'raj.karia.sa@gmail.com',
-//     to: req.body.email,
-//     subject: 'Order Confirmed',
-//     text: 'Your Order is Confirmed.'
-
-// }
-
-// transporter.sendMail(mailOptions, function(error, info){
-// if (error) 
-// {
-//     res.send(error);
-// } 
-// else 
-// {
-//     res.json({'success':true, 'message':'Done'});
-// }
-// });
