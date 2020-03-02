@@ -1,17 +1,13 @@
-var express =require('express');
+var express = require('express');
 var app = express.Router();
-order = require('../controller/addorderlist');
+order = require('../order_list/controller/addorderlist');
 
-app.post('/addtoorderlist',(req,res)=>
-{
-    order.addtoOrderList(req,res,(err,result)=>
-    {
-        if(err)
-        {
+app.post('/addtoorderlist', (req, res) => {
+    order.addtoOrderList(req, res, (err, result) => {
+        if (err) {
             res.json({ 'error': true, 'message': 'Error Adding Order !' });
         }
-        else
-        {
+        else {
             res.json({ 'success': true, 'message': ' Done!' });
         }
     });

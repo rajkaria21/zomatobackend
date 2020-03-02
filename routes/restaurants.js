@@ -1,21 +1,18 @@
 var express = require('express');
 var app = express.Router();
 
-restaurent = require('../controller/getrestaurents');
-resdetails = require('../controller/getresdetail');
+restaurent = require('../restaurents/controller/getrestaurents');
+resdetails = require('../restaurents/controller/getresdetail');
+searchres = require('../restaurents/controller/searchbyres');
 
 //======== Get Restautrents ===========
 
-app.get('/restaurents',(req,res)=>
-{
-    restaurent.getRestaurents(req,res,(err,result)=>
-    {
-        if(err)
-        {
+app.get('/restaurents', (req, res) => {
+    restaurent.getRestaurents(req, res, (err, result) => {
+        if (err) {
             res.json({ 'error': true, 'message': 'Error Fetching Restaurents .. !' });
         }
-        else
-        {
+        else {
             res.json(result);
         }
     });
@@ -23,16 +20,12 @@ app.get('/restaurents',(req,res)=>
 
 // ========== Get Restaurents Detail ============
 
-app.post('/restaurents/resdetail',(req,res)=>
-{
-    resdetails.getResdetails(req,res,(err,result)=>
-    {
-        if(err)
-        {
+app.post('/restaurents/resdetail', (req, res) => {
+    resdetails.getResdetails(req, res, (err, result) => {
+        if (err) {
             res.json({ 'error': true, 'message': 'Error Fetching Restaurents Details .. !' });
         }
-        else
-        {
+        else {
             res.json(result);
             res.json({ 'success': true, 'message': ' Done!' });
 
@@ -40,4 +33,19 @@ app.post('/restaurents/resdetail',(req,res)=>
     });
 });
 
-module.exports =  app;
+// ========== Search Restaurents ============
+
+app.post('/search', (req, res) => {
+    searchres.searchbyRes(req, res, (err, result) => {
+        if (err) {
+            res.json({ 'error': true, 'message': 'Error Fetching Restaurent !' });
+        }
+        else {
+            res.json(result);
+            res.json({ 'success': true, 'message': ' Done!' });
+
+        }
+    });
+});
+
+module.exports = app;
