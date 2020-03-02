@@ -3,7 +3,6 @@ var app = express.Router();
 
 register = require('../user/controller/register');
 login = require('../user/controller/login');
-
 forgot = require('../user/controller/forgotpass');
 profile = require('../user/controller/getprofile');
 change = require('../user/controller/changepass');
@@ -103,11 +102,6 @@ app.post('/editprofile', (req, res) => {
         }
     });
 });
-
-
-
-
-
 
 
 module.exports = app;

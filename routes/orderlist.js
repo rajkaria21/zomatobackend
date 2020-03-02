@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express.Router();
-order = require('../order_list/controller/addorderlist');
+order = require('../orderlist/controller/addorderlist');
 
 app.post('/addtoorderlist', (req, res) => {
     order.addtoOrderList(req, res, (err, result) => {
