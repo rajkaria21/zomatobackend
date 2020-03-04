@@ -1,0 +1,71 @@
+const con = require('../../config/connection');
+const nodemailer = require('nodemailer');
+module.exports.forgotpassword = (req, res) => {
+
+    // Generating OTP
+
+    function generateOTP(email) {
+        var digits = '0123456789';
+        let OTP = '';
+        for (let i = 0; i < 4; i++) {
+            OTP += digits[Math.floor(Math.random() * 10)];
+        }
+
+        // Inserting OTP in Database
+
+        con.query(`insert into otptable (otp,email) values(${OTP},'${email}')`);
+
+        // Sending Mail of OTP
+
+        var transporter = nodemailer.createTransport(
+            {
+                service: 'gmail',
+                auth: {
+                    user: 'raj.karia.sa@gmail.com',
+                    pass: 'raj@123456'
+                }
+            });
+
+        var mailOptions =
+        {
+            from: 'Zomato <raj.karia.sa@gmail.com>',
+            to: req.body.email,
+            subject: 'Reset Password',
+            text: 'Your OTP for Resetting Password: ' + OTP + ' .'
+
+        }
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                res.send(error);
+            }
+            else {
+                res.json({ 'success': true, 'message': 'Verified !! OTP sent in Mail' });
+            }
+        });
+    }
+
+    // Checking Email is There or Not in Database
+
+    var sql = `select auth_token from user where email ='${req.body.email}'`;
+    con.query(sql, (err, result) => {
+        if (err) {
+            res.send('Error');
+        } else {
+            if (result.length > 0) {
+                const token = req.headers['auth_token'];
+                if (result[0].auth_token == token) {
+                    generateOTP(result[0].email);
+                    res.json({ 'success': true, 'message': 'Verified !! OTP sent in Mail' });
+                } else {
+                    res.json({ 'error': true, 'message': 'Auth token does not match' });
+                }
+            }
+            else {
+                res.json({ 'error': true, 'message': 'Email does not exits' });
+            }
+        }
+    });
+}
+
+
