@@ -1,8 +1,5 @@
 const con = require('../../config/connection');
-
-
 const bcrypt = require('bcrypt');
-
 module.exports.login = (req, res) => {
 
     const email = req.body.email;

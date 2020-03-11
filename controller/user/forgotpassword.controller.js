@@ -4,7 +4,7 @@ module.exports.forgotpassword = (req, res) => {
 
     // Generating OTP
 
-    function generateOTP(email) {
+    function generateOTP() {
         var digits = '0123456789';
         let OTP = '';
         for (let i = 0; i < 4; i++) {
@@ -12,7 +12,7 @@ module.exports.forgotpassword = (req, res) => {
         }
 
         // Inserting OTP in Database
-
+        const email = req.body.email;
         con.query(`insert into otptable (otp,email) values(${OTP},'${email}')`);
 
         // Sending Mail of OTP
@@ -47,21 +47,15 @@ module.exports.forgotpassword = (req, res) => {
 
     // Checking Email is There or Not in Database
 
-    var sql = `select auth_token from user where email ='${req.body.email}'`;
+    var sql = `select * from user where email ='${req.body.email}'`;
     con.query(sql, (err, result) => {
         if (err) {
             res.send('Error');
         } else {
             if (result.length > 0) {
-                const token = req.headers['auth_token'];
-                if (result[0].auth_token == token) {
-                    generateOTP(result[0].email);
-                    res.json({ 'success': true, 'message': 'Verified !! OTP sent in Mail' });
-                } else {
-                    res.json({ 'error': true, 'message': 'Auth token does not match' });
-                }
-            }
-            else {
+                generateOTP(result.email);
+                res.json({ 'success': true, 'message': 'Verified !! OTP sent in Mail' });
+            } else {
                 res.json({ 'error': true, 'message': 'Email does not exits' });
             }
         }
