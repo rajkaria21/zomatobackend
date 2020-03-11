@@ -1,22 +1,23 @@
 {
-  "name": "zomato",
+  "name": "app.js",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "nodemon app.js"
+    "start": "nodemon app.js"
   },
-  "author": "raj",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.0",
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "email-existence": "^0.1.6",
     "express": "^4.17.1",
+    "git": "^0.1.5",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
     "mysql": "^2.18.1",
-    "node-validator": "^0.1.27",
-    "nodemailer": "^6.4.3"
+    "nodemailer": "^6.4.4",
+    "path": "^0.12.7"
   }
 }
