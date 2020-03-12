@@ -18,7 +18,7 @@ app.post('/users/login',logincontrol.login);
 app.post('/users/forgotpassword',forgotpasswordcontrol.forgotpassword);
 app.post('/users/verifyotp',verifyotpcontrol.verifyotp);
 
-app.post('/users/profiledetails',getprofilecontrol.getprofile);
+app.get('/users/profiledetails',getprofilecontrol.getprofile);
 app.post('/users/resetpassword',resetpasswordcontrol.resetpass);
 app.post('/users/changepassword',changepasswordcontrol.changepass);
 app.post('/users/editprofile',editvalidationmiddleware.editprofilevalidation,editprofilecontrol.editprofile);

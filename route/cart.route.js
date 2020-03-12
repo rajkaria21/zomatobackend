@@ -6,7 +6,7 @@ const getcartdetailscontrol = require('../controller/cart/getcartdetails.control
 const deletecartdetailscontrol = require('../controller/cart/delcartdetails.controller');
 
 app.post('/order/addtocart', addtocartcontrol.addtocart);
-app.post('/order/cartdetails', getcartdetailscontrol.getcartdetails);
+app.get('/order/cartdetails', getcartdetailscontrol.getcartdetails);
 app.post('/order/delcartdetails',deletecartdetailscontrol.delcartdetails);
 
 module.exports = app;

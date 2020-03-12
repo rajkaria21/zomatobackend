@@ -9,13 +9,19 @@ module.exports.addrating = (req, res) => {
     const token = req.headers['auth_token'];
     con.query(`select * from user where auth_token='${token}' and email = '${req.body.email}'`, (err, result) => {
         if (result.length != 0) {
-            con.query(`INSERT INTO rating SET ?`, rating, function (err, result) {
-                if (err) {
-                    res.json({ 'error': true, 'message': 'Error Adding Rating' })
+            con.query(`select * from rating where r_id=${req.body.r_id} and email='${req.body.email}'`, (err, result) => {
+                if (result.length == 0) {
+                    con.query(`INSERT INTO rating SET ?`, rating, function (err, result) {
+                        if (err) {
+                            res.json({ 'error': true, 'message': 'Error Adding Rating' })
+                        } else {
+                            res.json({ 'success': true, 'message': 'Rating Added Successfully' });
+                        }
+                    });
                 } else {
-                    res.json({ 'success': true, 'message': 'Rating Added Successfully' });
+                    res.json({ 'error': true, 'message': 'Rating Already Given' });
                 }
-            });
+            })
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }
