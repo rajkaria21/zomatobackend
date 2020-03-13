@@ -1,16 +1,16 @@
 var sql = require('mysql');
 
 var dbcon = sql.createConnection({
-    host:'localhost',
+    host: 'localhost',
     port: '3333',
-    user:'root',
-    password:'',
-    database:'zomato'
+    user: 'root',
+    password: '',
+    database: 'zomato'
 });
-dbcon.connect((err)=>{
-    if(err){
+dbcon.connect((err) => {
+    if (err) {
         console.log('Error');
-    }else{
+    } else {
         console.log('connected');
     }
 });
