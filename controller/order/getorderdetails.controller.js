@@ -21,7 +21,7 @@ module.exports.getorderdetails = (req, res) => {
                 }
             });
         } else {
-            res.json({ 'error': true, 'message': 'Wrong Auth Token' });/*  */
+            res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }
     });
 }

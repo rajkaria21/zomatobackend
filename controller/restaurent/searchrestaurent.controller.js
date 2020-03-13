@@ -1,6 +1,5 @@
 var con = require('../../config/connection');
 
-
 module.exports.searchbyrestaurent = (req, res) => {
     const token = req.headers['auth_token'];
     con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
