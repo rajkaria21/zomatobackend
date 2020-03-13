@@ -6,4 +6,4 @@ const getorderdetailscontrol = require('../controller/order/getorderdetails.cont
 app.post('/orderlist/addtoorderlist',addtoorderlistcontrol.addtoorderlist);
 app.get('/orderlist/getorderdetails',getorderdetailscontrol.getorderdetails);
 
-module.exports = app;
+module.exports = app; 
