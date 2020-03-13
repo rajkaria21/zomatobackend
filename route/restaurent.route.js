@@ -3,6 +3,7 @@ const app = express.Router();
 const path = require('path');
 const con = require('../config/connection')
 const multer = require('multer');
+// const multipart = require('multiparty')
 const DIR = '/home/rajkaria/Documents/Zomato/controller/restaurent/uploads/image';
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -12,7 +13,20 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + Date.now() + path.extname(file.originalname));
     }
 });
-const upload = multer({ storage: storage });
+
+
+const fileFilter = (req,file,cb) => {
+
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        return cb(new Error('Only images allowed'));   
+    }
+};
+
+const upload = multer({
+    storage:storage,fileFilter:fileFilter
+});
 
 const getrestaurentcontrol = require('../controller/restaurent/getrestaurent.controller');
 const getrestaurentdetailcontrol = require('../controller/restaurent/getrestaurentdetail.controller');
@@ -20,6 +34,7 @@ const searchrestaurentcontrol = require('../controller/restaurent/searchrestaure
 const addratingcontrol = require('../controller/restaurent/addrating.controller');
 const viewaverageratingcontrol = require('../controller/restaurent/viewaveragerating.controller');
 const getreviewcontrol = require('../controller/restaurent/getreviews.controller');
+// const reviewvalidate = require('../middleware/reviewvalidation');
 
 app.get('/res/getreviews', getreviewcontrol.getreview);
 app.get('/res/restaurents', getrestaurentcontrol.getrestaurents);
@@ -27,37 +42,29 @@ app.get('/res/restaurentdetail', getrestaurentdetailcontrol.getrestaurentdetails
 app.get('/res/search', searchrestaurentcontrol.searchbyrestaurent);
 app.post('/res/addrating', addratingcontrol.addrating);
 app.get('/res/viewrating', viewaverageratingcontrol.viewaveragerating);
-app.post('/res/addreview', upload.single('photo'), function (req, res) {
-    const review = {
-        'r_id': req.body.r_id,
-        'email': req.body.email,
-        'comment': req.body.comment,
-        'photo': req.file.path
-    }
-    if (!req.file) {
-        res.json({ 'error': true, 'message': 'Error Fetching Image' });
-    } else {
-        const token = req.headers['auth_token'];
+app.post('/res/addreview', upload.single('photo'),function (req, res) {
+ 
+    const r_id = req.body.r_id;
+    const email = req.body.email;
+    const comment = req.body.comment;
+    const photo = req.file.path;
+    const token = req.headers['auth_token'];
+
         con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
             if (result.length != 0) {
-                con.query(`select * from review where r_id=${req.body.r_id} and email='${req.body.email}' and photo='${req.file.path}'`, (err, result) => {
-                    if (result.length == 0) {
-                        con.query(`INSERT INTO review SET ?`, review, function (err, result) {
-                            if (err) {
-                                res.json({ 'error': true, 'message': 'Error Adding Review' });
-                            } else {
-                                res.json({ 'success': true, 'message': 'Review Added Successfully' });
-                            }
-                        });
+                
+                con.query(`INSERT INTO review(r_id,email,comment,photo) VALUES ('${r_id}','${email}','${comment}','${photo}')`, function (err, result) {
+                    if (err) {
+                     
+                        res.json({ 'error': true, 'message': 'Error Adding Review' });
                     } else {
-                        res.json({ 'error': true, 'message': 'Review Already Added' });
+                        res.json({ 'success': true, 'message': 'Review Added Successfully' });
                     }
-                })
+                });
             } else {
                 res.json({ 'error': true, 'message': 'Wrong Auth Token' });
             }
         });
-    }
 });
 
 

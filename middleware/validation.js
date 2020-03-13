@@ -7,7 +7,7 @@ module.exports.validation = (req, res, next) => {
     const mob_no = /^([6-9]{1})([0-9]{9})$/;
     const address = /^[a-zA-Z0-9\s,'-]*$/;
     const city = /^[a-zA-Z]+$/;
-
+    
     if (!username.test(req.body.username) || (req.body.username).length < 3) {
         return res.json({ 'error': true, 'message': 'Invalid Username' });
     }
