@@ -7,7 +7,6 @@ module.exports.addtoorderlist = (req, res) => {
     const params = [req.body.r_id, req.body.f_id, req.body.email, req.body.qty, req.body.address, req.body.payment_type, datetime, req.body.total_amount, status];
     const token = req.headers['auth_token'];
     con.query(`select * from user where auth_token='${token}' and email = '${req.body.email}'`, (err, result) => {
-        console.log(req.body)
         if (result.length != 0) {
             con.query('INSERT INTO order_list (r_id,f_id,email,qty,address,payment_type,date_time,total_amount,status)VALUES(?,?,?,?,?,?,?,?,?)', params, (err, result) => {
                 if (err) {
