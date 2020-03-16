@@ -30,10 +30,11 @@ let obj = {
     fileFilter: fileFilter
 };
 
+
 const upload = multer(obj).single('photo');
 module.exports.addreview = (req, res) => {
     const token = req.headers['auth_token'];
-    con.query(`select auth_token from user where auth_token='${token}' and email ='${req.body.email}'`, (err, result) => {
+    con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
         if (result.length != 0) {
             upload(req, res, function (error) {
                 if (error) {
@@ -43,17 +44,16 @@ module.exports.addreview = (req, res) => {
                         error.success = false;
                     }
                     return res.json(error);
-
                 } else {
                     if (!req.file) {
                         res.status(500);
                         res.json('file not found');
                     } else {
-
                         const r_id = req.body.r_id;
                         const email = req.body.email;
                         const comment = req.body.comment;
                         const photo = req.file.path;
+
                         con.query(`INSERT INTO review(r_id,email,comment,photo) VALUES ('${r_id}','${email}','${comment}','${photo}')`, function (err, result) {
                             if (err) {
                                 res.json({ 'error': true, 'message': 'Error Adding Review' });
@@ -68,5 +68,4 @@ module.exports.addreview = (req, res) => {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }
     });
-
-};
+} 
