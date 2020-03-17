@@ -35,9 +35,9 @@ module.exports.viewaveragerating = (req, res) => {
                             }
                             res.json({ Five: five_count, Four: four_count, Three: three_count, Two: two_count, One: one_count, Total: result.length, Avg: resultOuter[0].rating })
                         }
-                    })
+                    });
                 }
-            })
+            });
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }

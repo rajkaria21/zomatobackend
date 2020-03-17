@@ -1,7 +1,7 @@
 const express = require('express');
 
 module.exports.validation = (req, res, next) => {
-    const username = /^[a-zA-Z_ ]*$/;
+    const username = /(\b(?:([A-Za-z0-9 ])(?!\2{2}))+\b)/;
     const email = /^[\-0-9a-zA-Z\.\+_]+@[\-0-9a-zA-Z\.\+_]+\.[a-zA-Z]{2,}$/;
     const password = /^[a-zA-Z0-9]+$/;
     const mob_no = /^([6-9]{1})([0-9]{9})$/;
@@ -28,4 +28,4 @@ module.exports.validation = (req, res, next) => {
     }
     next();
 }
-
+// /^[a-zA-Z_ ]*$/

@@ -1,7 +1,7 @@
 const multer = require('multer');
 const DIR = '/home/rajkaria/Documents/Zomato/controller/restaurent/uploads/image';
-const path = require('path');
-const con = require('../../config/connection')
+const con = require('../../config/connection');
+
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, DIR);

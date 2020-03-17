@@ -18,7 +18,7 @@ module.exports.getrestaurentdetails = (req, res) => {
                         }
                     });
                 }
-            })
+            });
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }

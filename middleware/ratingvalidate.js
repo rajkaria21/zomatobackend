@@ -8,10 +8,10 @@ module.exports.ratingvalidate = (req, res, next) => {
     if (!email.test(req.body.email)) {
         return res.json({ 'error': true, 'message': 'Invalid Email' });
     }
-    if (!rating.test(req.body.rating)) {
+    if (!rating.test(req.body.rating) || (req.body.rating).length > 1) {
         return res.json({ 'error': true, 'message': 'Invalid Rating' });
     }
-    if (!r_id.test(req.body.r_id)) {
+    if (!r_id.test(req.body.r_id) || (req.body.r_id).length > 2) {
         return res.json({ 'error': true, 'message': 'Invalid r_id' });
     }
     next();
