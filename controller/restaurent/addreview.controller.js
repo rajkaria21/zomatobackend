@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
         callback(null, DIR);
     },
     filename: (req, file, callback) => {
-        callback(null, file.fieldname + Date.now() + path.extname(file.originalname));
+        callback(null, file.originalname);
     }
 });
 
@@ -17,7 +17,6 @@ let fileFilter = function (req, file, cb) {
         cb(null, true);
     } else {
         cb({
-            success: false,
             message: 'Invalid file type. Only jpg, png image files are allowed.',
         }, false);
     }
@@ -25,7 +24,7 @@ let fileFilter = function (req, file, cb) {
 let obj = {
     storage: storage,
     limits: {
-        fileSize: 200 * 1024
+        fileSize: 300 * 1024
     },
     fileFilter: fileFilter
 };
@@ -38,22 +37,19 @@ module.exports.addreview = (req, res) => {
         if (result.length != 0) {
             upload(req, res, function (error) {
                 if (error) {
-                    res.status(500);
                     if (error.code == 'LIMIT_FILE_SIZE') {
-                        error.message = 'File Size is too large. Allowed file size is 200KB';
-                        error.success = false;
+                        res.json({ 'error': true, 'message': 'File Size Limit Upto 300KB' });
+                    } else {
+                        res.json({ 'error': true, 'message': error.message });
                     }
-                    return res.json(error);
                 } else {
                     if (!req.file) {
-                        res.status(500);
-                        res.json('file not found');
+                        res.json({ 'error': true, 'message': 'File not Found' });
                     } else {
                         const r_id = req.body.r_id;
                         const email = req.body.email;
                         const comment = req.body.comment;
-                        const photo = req.file.path;
-
+                        const photo = req.file.originalname;
                         con.query(`INSERT INTO review(r_id,email,comment,photo) VALUES ('${r_id}','${email}','${comment}','${photo}')`, function (err, result) {
                             if (err) {
                                 res.json({ 'error': true, 'message': 'Error Adding Review' });

@@ -5,17 +5,18 @@ const getrestaurentcontrol = require('../controller/restaurent/getrestaurent.con
 const getrestaurentdetailcontrol = require('../controller/restaurent/getrestaurentdetail.controller');
 const searchrestaurentcontrol = require('../controller/restaurent/searchrestaurent.controller');
 const addratingcontrol = require('../controller/restaurent/addrating.controller');
-const viewaverageratingcontrol = require('../controller/restaurent/viewaveragerating.controller');
-const getreviewcontrol = require('../controller/restaurent/getreviews.controller');
-const reviewvalidate = require('../middleware/reviewvalidation');
 const addreviewcontrol = require('../controller/restaurent/addreview.controller');
+const viewratingcontrol = require('../controller/restaurent/viewrating.controller');
+const getreviewcontrol = require('../controller/restaurent/getreviews.controller');
+
+const ratingvalidatemiddleware = require('../middleware/ratingvalidate');
 
 app.get('/res/getreviews', getreviewcontrol.getreview);
 app.get('/res/restaurents', getrestaurentcontrol.getrestaurents);
 app.get('/res/restaurentdetail', getrestaurentdetailcontrol.getrestaurentdetails);
 app.get('/res/search', searchrestaurentcontrol.searchbyrestaurent);
-app.post('/res/addrating', addratingcontrol.addrating);
-app.get('/res/viewrating', viewaverageratingcontrol.viewaveragerating);
+app.post('/res/addrating', ratingvalidatemiddleware.ratingvalidate,addratingcontrol.addrating);
+app.get('/res/viewrating', viewratingcontrol.viewaveragerating);
 app.post('/res/addreview',addreviewcontrol.addreview)
 
 

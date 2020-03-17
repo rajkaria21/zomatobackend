@@ -9,9 +9,10 @@ module.exports.viewaveragerating = (req, res) => {
                     res.json({ 'error': true, 'message': 'Error Fetching Ratings' });
                 } else {
                     con.query(`SELECT rating FROM rating WHERE r_id = '${req.query.r_id}'`, (err, result) => {
-                        if (result.length == 0) {
-                            res.json({ 'error': true, 'message': 'No Ratings' });
-                        } else {
+                        if (result.length == 0 || req.query.r_id == '') {
+                            res.json({ 'error': true, 'message': 'No Ratings or Enter Something' });
+                        }
+                        else {
                             var rate;
                             var five_count = 0;
                             var four_count = 0;

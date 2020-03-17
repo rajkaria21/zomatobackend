@@ -13,8 +13,8 @@ module.exports.addtoorderlist = (req, res) => {
                     res.json({ 'error': true, 'message': 'Error Adding Order.. !' });
                 } else {
                     con.query(`select food_name,food_img from order_list JOIN food on order_list.f_id = food.f_id where order_list.email='${req.body.email}'`, (err, result) => {
+                        
                         const food_name = result[0].food_name;
-                        // const food_img = result[0].food_img;
                         setTimeout(function () {
                             var transporter = nodemailer.createTransport(
                                 {
@@ -42,15 +42,10 @@ module.exports.addtoorderlist = (req, res) => {
                                     res.json({ 'success': true, 'message': 'Done' });
                                 }
                             });
-
                             con.query(`UPDATE order_list SET status="Delivered" WHERE email='${req.body.email}'`, function (error, result) { });
-
                         }, 20000);
-
                     })
-
                     res.json({ 'success': true, 'message': 'Order added to Order List' });
-
                 }
             });
         } else {
