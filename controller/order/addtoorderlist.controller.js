@@ -14,11 +14,16 @@ module.exports.addtoorderlist = (req, res) => {
                 } else {
                     var splitFood;
                     var food = [];
-                    con.query(`select f_id from order_list WHERE email='${req.body.email}'`, (err, result) => {
+                    con.query(`select f_id,qty from order_list WHERE email='${req.body.email}'`, (err, result) => {
                         for (i = 0; i < result.length; i++) {
                             const food_name = result[i].f_id;
                             splitFood = food_name.split(',')
                         }
+                        // for (i = 0; i < result.length; i++) {
+                        //     const quan = result[i].qty;
+                        //     splitqty = quan.split(',');
+                        // }
+                        // console.log(splitqty)
                         for (i = 0; i < splitFood.length; i++) {
                             con.query(`select food_name from food where f_id='${splitFood[i]}'`, (err, foodresult) => {
                                 food.push(foodresult[0].food_name);
