@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(express.static('controller/restaurent/uploads/image'));
+app.use(express.static('public/image'));
  
 app.use(require('./route/user.route'));
 app.use(require('./route/restaurent.route'));

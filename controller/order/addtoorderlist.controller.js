@@ -12,9 +12,18 @@ module.exports.addtoorderlist = (req, res) => {
                 if (err) {
                     res.json({ 'error': true, 'message': 'Error Adding Order.. !' });
                 } else {
-                    con.query(`select food_name,food_img from order_list JOIN food on order_list.f_id = food.f_id where order_list.email='${req.body.email}'`, (err, result) => {
-                        
-                        const food_name = result[0].food_name;
+                    var splitFood;
+                    var food = [];
+                    con.query(`select f_id from order_list WHERE email='${req.body.email}'`, (err, result) => {
+                        for (i = 0; i < result.length; i++) {
+                            const food_name = result[i].f_id;
+                            splitFood = food_name.split(',')
+                        }
+                        for (i = 0; i < splitFood.length; i++) {
+                            con.query(`select food_name from food where f_id='${splitFood[i]}'`, (err, foodresult) => {
+                                food.push(foodresult[0].food_name);
+                            })
+                        }
                         setTimeout(function () {
                             var transporter = nodemailer.createTransport(
                                 {
@@ -30,7 +39,7 @@ module.exports.addtoorderlist = (req, res) => {
                                 from: 'Zomato<raj.karia.sa@gmail.com>',
                                 to: req.body.email,
                                 subject: 'Order Confirmed',
-                                text: 'Your Order is Confirmed. \n Thank You For Ordering. \n Hope You have enjoyed the ' + food_name + '.'
+                                text: 'Your Order is Confirmed. \nThank You For Ordering. \nHope You have enjoyed the ' + food + '.'
 
                             }
 
@@ -43,7 +52,7 @@ module.exports.addtoorderlist = (req, res) => {
                                 }
                             });
                             con.query(`UPDATE order_list SET status="Delivered" WHERE email='${req.body.email}'`, function (error, result) { });
-                        }, 20000);
+                        }, 2000);
                     })
                     res.json({ 'success': true, 'message': 'Order added to Order List' });
                 }

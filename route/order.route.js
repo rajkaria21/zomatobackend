@@ -6,7 +6,7 @@ const getorderdetailscontrol = require('../controller/order/getorderdetails.cont
 
 const ordervalidatemiddleware = require('../middleware/ordervalidation');
 
-app.post('/orderlist/addtoorderlist',ordervalidatemiddleware.ordervalidation,addtoorderlistcontrol.addtoorderlist);
+app.post('/orderlist/addtoorderlist',addtoorderlistcontrol.addtoorderlist);
 app.get('/orderlist/getorderdetails',getorderdetailscontrol.getorderdetails);
 
 module.exports = app; 

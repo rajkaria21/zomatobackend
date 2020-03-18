@@ -11,7 +11,7 @@ const getreviewcontrol = require('../controller/restaurent/getreviews.controller
 
 const ratingvalidatemiddleware = require('../middleware/ratingvalidate');
 
-const filterfoodcontrol = require('../controller/restaurent/filterfood');
+const filterfoodcontrol = require('../controller/restaurent/filterfood.controller');
 
 app.get('/res/getreviews', getreviewcontrol.getreview);
 app.get('/res/restaurents', getrestaurentcontrol.getrestaurents);

@@ -1,5 +1,5 @@
 const multer = require('multer');
-const DIR = '/home/rajkaria/Documents/Zomato/controller/restaurent/uploads/image';
+const DIR = '/home/rajkaria/Documents/Zomato/public/image';
 const con = require('../../config/connection');
 
 const storage = multer.diskStorage({
@@ -24,7 +24,7 @@ let fileFilter = function (req, file, cb) {
 let obj = {
     storage: storage,
     limits: {
-        fileSize: 300 * 1024
+        fileSize: 400 * 1024 * 1024
     },
     fileFilter: fileFilter
 };
@@ -36,7 +36,7 @@ module.exports.addreview = (req, res) => {
     con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
         if (result.length != 0) {
             upload(req, res, function (error) {
-                console.log(req.body)
+                // console.log(req.body)
                 if (error) {
                     if (error.code == 'LIMIT_FILE_SIZE') {
                         res.json({ 'error': true, 'message': 'File Size Limit Upto 300KB' });
