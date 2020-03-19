@@ -19,11 +19,7 @@ module.exports.addtoorderlist = (req, res) => {
                             const food_name = result[i].f_id;
                             splitFood = food_name.split(',')
                         }
-                        // for (i = 0; i < result.length; i++) {
-                        //     const quan = result[i].qty;
-                        //     splitqty = quan.split(',');
-                        // }
-                        // console.log(splitqty)
+                   
                         for (i = 0; i < splitFood.length; i++) {
                             con.query(`select food_name from food where f_id='${splitFood[i]}'`, (err, foodresult) => {
                                 food.push(foodresult[0].food_name);
