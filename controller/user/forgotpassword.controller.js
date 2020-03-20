@@ -21,8 +21,8 @@ module.exports.forgotpassword = (req, res) => {
             {
                 service: 'gmail',
                 auth: {
-                    user: 'raj.karia.sa@gmail.com',
-                    pass: 'raj@123456'
+                    user: process.env.EMAIL,
+                    pass: process.env.PASSWORD
                 }
             });
 

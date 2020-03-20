@@ -19,7 +19,7 @@ module.exports.addtoorderlist = (req, res) => {
                             const food_name = result[i].f_id;
                             splitFood = food_name.split(',')
                         }
-                   
+
                         for (i = 0; i < splitFood.length; i++) {
                             con.query(`select food_name from food where f_id='${splitFood[i]}'`, (err, foodresult) => {
                                 food.push(foodresult[0].food_name);
@@ -30,8 +30,8 @@ module.exports.addtoorderlist = (req, res) => {
                                 {
                                     service: 'gmail',
                                     auth: {
-                                        user: 'raj.karia.sa@gmail.com',
-                                        pass: 'raj@123456'
+                                        user: process.env.EMAIL,
+                                        pass: process.env.PASSWORD
                                     }
                                 });
 
@@ -47,6 +47,7 @@ module.exports.addtoorderlist = (req, res) => {
                             transporter.sendMail(mailOptions, function (error, info) {
                                 if (error) {
                                     res.send(error);
+                                    
                                 }
                                 else {
                                     res.json({ 'success': true, 'message': 'Done' });

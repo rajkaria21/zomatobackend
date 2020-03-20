@@ -1,10 +1,10 @@
 var con = require('../../config/connection');
 var resultArray = [];
+
 function filterFood(data) {
     if (data.length != 0) {
-        resultArray.push(data);
+        resultArray.push(data)
         return resultArray;
-
     } else {
         return resultArray.push({ 'error': true, 'message': "Data Not Found" });
     }
@@ -33,6 +33,7 @@ module.exports.filterfood = async (req, res) => {
                     var promiseIn = new Promise(async function (resolveI, reject) {
                         resultArray = [];
                         con.query(sql, async (err, result) => {
+
                             if (result.length == 0) {
                                 filterFood(result);
                                 resolveI(resultArray);

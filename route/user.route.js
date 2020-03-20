@@ -12,13 +12,14 @@ const editprofilecontrol = require('../controller/user/editprofile.controller');
 
 const validationmiddleware = require('../middleware/validation');
 const editvalidationmiddleware = require('../middleware/editprofilevalidation');
+const resetpasswordvalidate = require('../middleware/resetpasswordvalidation');
 
 app.post('/users/register',validationmiddleware.validation,registercontrol.register);
 app.post('/users/login',logincontrol.login);
 app.post('/users/forgotpassword',forgotpasswordcontrol.forgotpassword);
 app.post('/users/verifyotp',verifyotpcontrol.verifyotp);
 app.get('/users/profiledetails',getprofilecontrol.getprofile);
-app.post('/users/resetpassword',resetpasswordcontrol.resetpass);
+app.post('/users/resetpassword',resetpasswordvalidate.resetpassvalidate,resetpasswordcontrol.resetpass);
 app.post('/users/editprofile',editvalidationmiddleware.editprofilevalidation,editprofilecontrol.editprofile);
 
 module.exports = app;
