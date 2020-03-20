@@ -2,7 +2,7 @@ const con = require('../../config/connection');
 const nodemailer = require('nodemailer');
 module.exports.forgotpassword = (req, res) => {
 
-    // Generating OTP
+        // Generating OTP
 
     function generateOTP() {
         var digits = '0123456789';
@@ -12,6 +12,7 @@ module.exports.forgotpassword = (req, res) => {
         }
 
         // Inserting OTP in Database
+
         const email = req.body.email;
         con.query(`insert into otptable (otp,email) values(${OTP},'${email}')`);
 

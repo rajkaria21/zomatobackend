@@ -10,7 +10,7 @@ module.exports.resetpass = (req, res) => {
         } else {
             con.query(`select * from user where email ='${req.body.email}'`, (err, result) => {
                 if (result.length > 0) {
-                    con.query(`select password from user where email ='${req.body.email}'`, (err, result) => {
+                    // con.query(`select password from user where email ='${req.body.email}'`, (err, result) => {
                         const dbpass = result[0].password;
                         const pass = bcrypt.compareSync(req.body.password, dbpass);
                         if (pass == true) {
@@ -30,7 +30,7 @@ module.exports.resetpass = (req, res) => {
                                 }
                             });
                         }
-                    });
+                    // });
                 } else {
                     res.json({ 'error': true, 'message': 'Email does not exits' });
                 }

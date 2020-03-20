@@ -8,11 +8,13 @@ const verifyotpcontrol = require('..//controller/user/verifyotp.controller');
 const getprofilecontrol = require('../controller/user/getprofile.conroller');
 const resetpasswordcontrol = require('../controller/user/resetpassword.controller');
 const editprofilecontrol = require('../controller/user/editprofile.controller');
+const changepasswordcontrol = require('../controller/user/changepassword.controller');
 
 
 const validationmiddleware = require('../middleware/validation');
 const editvalidationmiddleware = require('../middleware/editprofilevalidation');
 const resetpasswordvalidate = require('../middleware/resetpasswordvalidation');
+const changepasswordvalidate = require('../middleware/changepasswordvalidation');
 
 app.post('/users/register',validationmiddleware.validation,registercontrol.register);
 app.post('/users/login',logincontrol.login);
@@ -21,5 +23,5 @@ app.post('/users/verifyotp',verifyotpcontrol.verifyotp);
 app.get('/users/profiledetails',getprofilecontrol.getprofile);
 app.post('/users/resetpassword',resetpasswordvalidate.resetpassvalidate,resetpasswordcontrol.resetpass);
 app.post('/users/editprofile',editvalidationmiddleware.editprofilevalidation,editprofilecontrol.editprofile);
-
+app.post('/users/changepassword',changepasswordvalidate.changepassvalidate,changepasswordcontrol.changepassword)
 module.exports = app;

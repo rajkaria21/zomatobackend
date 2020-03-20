@@ -15,7 +15,7 @@ module.exports.login = (req, res) => {
                         res.json({ 'error': true, 'message': 'Error' });
                     } else {
                         const token_send = result[0].auth_token;
-                        res.json({ 'success': true, 'message': 'User Logged succesfully', 'auth_token': token_send })
+                        res.json({ 'success': true, 'message': 'User Logged succesfully', 'auth_token': token_send });
                     }
                 });
             } else {

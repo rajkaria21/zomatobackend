@@ -32,6 +32,7 @@ module.exports.register = (req, res) => {
                 }
             });
         } else {
+            res.status(404);
             res.json({ 'error': true, 'message': 'Invalid Email' });
         }
     });
