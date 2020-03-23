@@ -10,14 +10,11 @@ module.exports.getcartdetails = (req, res) => {
                 if (result.length == 0) {
                     res.json({ 'error': true, 'message': 'no items !' });
                 } else {
-                    const sql = `select * from cart where r_id=${r_id} and email='${req.query.email}'`;
-                    con.query(sql, (err, result) => {
-                        if (err) {
-                            res.json({ 'error': true, 'message': 'Error Fetching Cart Details.. !' });
-                        } else {
-                            res.json(result);
-                        }
-                    });
+                    if (err) {
+                        res.json({ 'error': true, 'message': 'Error Fetching Cart Details.. !' });
+                    } else {
+                        res.json(result);
+                    }
                 }
             });
         } else {

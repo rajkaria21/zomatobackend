@@ -9,7 +9,6 @@ function filterFood(data) {
         return resultArray.push({ 'error': true, 'message': "Data Not Found" });
     }
 }
-
 module.exports.filterfood = async (req, res) => {
 
     const token = req.headers['auth_token'];

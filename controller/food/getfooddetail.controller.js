@@ -8,14 +8,11 @@ module.exports.getfooddetail = (req, res) => {
                 if (result.length == 0) {
                     res.json({ 'error': true, 'message': 'No Such Food' });
                 } else {
-                    var sql = `select * from food where f_id='${req.query.f_id}'`;
-                    con.query(sql, (err, result) => {
-                        if (err) {
-                            res.json({ 'error': true, 'message': 'Error Fetching food.. !' });
-                        } else {
-                            res.json(result);
-                        }
-                    });
+                    if (err) {
+                        res.json({ 'error': true, 'message': 'Error Fetching food.. !' });
+                    } else {
+                        res.json(result);
+                    }
                 }
             })
 

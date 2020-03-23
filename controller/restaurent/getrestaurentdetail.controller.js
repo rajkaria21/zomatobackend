@@ -5,18 +5,15 @@ module.exports.getrestaurentdetails = (req, res) => {
     con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
         if (result.length !== 0) {
             con.query(`SELECT  * FROM restaurants JOIN food ON restaurants.r_id = food.r_id where restaurants.r_id =${req.query.r_id}`, (err, result) => {
-                if (result.length == 0) {
+                if (result.length == 0 || req.query.r_id == '') {
                     res.json({ 'error': true, 'message': 'No Details Found' });
                 } else {
-                    var mysql = `SELECT  * FROM restaurants JOIN food ON restaurants.r_id = food.r_id where restaurants.r_id =${req.query.r_id}`;
-                    con.query(mysql, (err, result) => {
-                        if (err) {
-                            res.json({ 'error': true, 'message': 'Error Fetching Restaurents Details .. !' });
-                        }
-                        else {
-                            res.json(result);
-                        }
-                    });
+                    if (err) {
+                        res.json({ 'error': true, 'message': 'Error Fetching Restaurents Details .. !' });
+                    }
+                    else {
+                        res.json(result);
+                    }
                 }
             });
         } else {

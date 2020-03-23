@@ -8,15 +8,12 @@ module.exports.searchbyrestaurent = (req, res) => {
                 if (result.length == 0) {
                     res.json({ 'error': true, 'message': 'No Such Restaurents' });
                 } else {
-                    var sql = `select * from restaurants where restaurant_name LIKE '%${req.query.restaurant_name}%'`;
-                    con.query(sql, (err, result) => {
-                        if (err) {
-                            res.json({ 'error': true, 'message': 'Error Fetching Restaurent.. !' });
-                        }
-                        else {
-                            res.json(result);
-                        }
-                    });
+                    if (err) {
+                        res.json({ 'error': true, 'message': 'Error Fetching Restaurent.. !' });
+                    }
+                    else {
+                        res.json(result);
+                    }
                 }
             })
 

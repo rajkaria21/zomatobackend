@@ -9,6 +9,7 @@ var dbcon = sql.createConnection({
 });
 dbcon.connect((err) => {
     if (err) {
+        console.log(err)
         console.log('Error');
     } else {
         console.log('connected');

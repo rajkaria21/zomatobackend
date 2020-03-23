@@ -11,19 +11,19 @@ module.exports.cartvalidation = (req, res, next) => {
     if (!email.test(req.body.email) || (req.body.email) == '') {
         return res.json({ 'error': true, 'message': 'Invalid Email' });
     }
-    if (!qty.test(req.body.qty) || (req.body.qty) > 10 || (req.body.qty) == '') {
+    if (!qty.test(req.body.qty) || (req.body.qty) > 10 || (req.body.qty) == '' || (req.body.qty).length > 2) {
         return res.json({ 'error': true, 'message': 'Invalid Quantity' });
     }
-    if (!r_id.test(req.body.r_id) || (req.body.r_id) == '') {
+    if (!r_id.test(req.body.r_id) || (req.body.r_id) == '' || (req.body.r_id).length > 2) {
         return res.json({ 'error': true, 'message': 'Invalid r_id' });
     }
-    if (!f_id.test(req.body.f_id) || (req.body.f_id) == '') {
+    if (!f_id.test(req.body.f_id) || (req.body.f_id) == '' || (req.body.f_id).length > 2) {
         return res.json({ 'error': true, 'message': 'Invalid f_id' });
     }
-    if (!amount.test(req.body.amount) || (req.body.amount) == '') {
+    if (!amount.test(req.body.amount) || (req.body.amount) == '' || (req.body.amount).length > 4) {
         return res.json({ 'error': true, 'message': 'Invalid Amount' });
     }
-    if (!total_amount.test(req.body.total_amount) || (req.body.total_amount) == '') {
+    if (!total_amount.test(req.body.total_amount) || (req.body.total_amount) == '' || (req.body.total_amount).length > 4) {
         return res.json({ 'error': true, 'message': 'Invalid Total Amount' });
     }
     next();

@@ -18,7 +18,6 @@ module.exports.addrating = (req, res) => {
                             res.json({ 'success': true, 'message': 'Rating Added Successfully' });
                         }
                     });
-                    
                 } else {
                     con.query(`update rating set rating=${req.body.rating} where r_id=${req.body.r_id} and email='${req.body.email}'`, function (err, result) {
                         if (err) {
@@ -29,7 +28,6 @@ module.exports.addrating = (req, res) => {
                     });
                 }
             });
-           
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }

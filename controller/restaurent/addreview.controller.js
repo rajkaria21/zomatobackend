@@ -59,7 +59,7 @@ module.exports.addreview = (req, res) => {
                         });
                     }
                 }
-            })
+            });
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }

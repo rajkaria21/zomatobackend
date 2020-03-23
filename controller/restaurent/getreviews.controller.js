@@ -4,19 +4,17 @@ module.exports.getreview = (req, res) => {
     const token = req.headers['auth_token'];
     con.query(`select auth_token from user where auth_token='${token}'`, (err, result) => {
         if (result.length != 0) {
-            con.query(`select * from review where r_id='${req.query.r_id}'`,(err,result)=>{
-                if(result.length == 0 || req.query.r_id == ''){
+            con.query(`select * from review where r_id='${req.query.r_id}'`, (err, result) => {
+                if (result.length == 0 || req.query.r_id == '') {
                     res.json({ 'error': true, 'message': 'No Reviews' });
-                }else{
-                    con.query(`select * from review where r_id='${req.query.r_id}'`, (err, result) => {
-                        if (err) {
-                            res.json({ 'error': true, 'message': 'Error Fetching Review' });
-                        } else {
-                            res.json(result);
-                        }
-                    });
+                } else {
+                    if (err) {
+                        res.json({ 'error': true, 'message': 'Error Fetching Review' });
+                    } else {
+                        res.json(result);
+                    }
                 }
-            }); 
+            });
         } else {
             res.json({ 'error': true, 'message': 'Wrong Auth Token' });
         }

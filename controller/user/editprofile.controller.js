@@ -10,8 +10,7 @@ module.exports.editprofile = (req, res) => {
             con.query(sql, (err, result) => {
                 if (err) {
                     res.json({ 'error': true, 'message': 'Error' });
-                }
-                else {
+                } else {
                     if (result.length > 0) {
                         res.json({ 'error': true, 'message': 'Error' });
                     } else {
